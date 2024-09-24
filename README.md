@@ -120,7 +120,7 @@ This is of course a WIP, so if you have any feature requests, bugs, or really an
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Clean project
+- [x] Clean project
 - [ ] Add additional tools to complete stack
 - [ ] Develop frontend to MVP standards
   - [ ] Create UI/UX with mock values based on Figma
