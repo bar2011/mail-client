@@ -10,7 +10,8 @@ import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
-import { db } from "~/server/db";
+import { db } from "../db/index.ts";
+import { type CreateFastifyContextOptions } from "@trpc/server/adapters/fastify";
 
 /**
  * 1. CONTEXT
@@ -24,10 +25,11 @@ import { db } from "~/server/db";
  *
  * @see https://trpc.io/docs/server/context
  */
-export const createTRPCContext = async (opts: { headers: Headers }) => {
+export const createTRPCContext = async (opts: CreateFastifyContextOptions) => {
   return {
     db,
-    ...opts,
+    req: opts.req,
+    res: opts.res,
   };
 };
 
@@ -81,12 +83,6 @@ export const createTRPCRouter = t.router;
  */
 const timingMiddleware = t.middleware(async ({ next, path }) => {
   const start = Date.now();
-
-  if (t._config.isDev) {
-    // artificial delay in dev
-    const waitMs = Math.floor(Math.random() * 400) + 100;
-    await new Promise((resolve) => setTimeout(resolve, waitMs));
-  }
 
   const result = await next();
 
