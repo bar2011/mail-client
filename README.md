@@ -122,10 +122,11 @@ This is of course a WIP, so if you have any feature requests, bugs, or really an
 
 - [x] Clean project
 - [ ] Add additional tools to complete stack
-  - [ ] Add Fastify in backend
+  - [x] Add Fastify in backend
   - [ ] Add Electron
   - [ ] Add Capacitor (if possible add both Electron and Capacitor together)
   - [ ] Add ShadcnUI
+  - [ ] Connect web to Vercel
 - [ ] Develop frontend to MVP standards
   - [ ] Create UI/UX with mock values based on Figma
   - [ ] Make everything as dynamic as possible to allow later integration with backend
