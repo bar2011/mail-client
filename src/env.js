@@ -9,7 +9,7 @@ export const env = createEnv({
   server: {
     DATABASE_URL: z.string().url(),
     SERVER_PORT: z.number().int(),
-    SERVER_URL: z.string().url(),
+    CLIENT_URL: z.string().url(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -22,6 +22,7 @@ export const env = createEnv({
    */
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_SERVER_URL: z.string().url(),
   },
 
   /**
@@ -31,7 +32,8 @@ export const env = createEnv({
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
     SERVER_PORT: process.env.SERVER_PORT,
-    SERVER_URL: process.env.SERVER_URL,
+    CLIENT_URL: process.env.CLIENT_URL,
+    NEXT_PUBLIC_SERVER_URL: process.env.NEXT_PUBLIC_SERVER_URL,
     NODE_ENV: process.env.NODE_ENV,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
@@ -39,7 +41,7 @@ export const env = createEnv({
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
    * useful for Docker builds.
    */
-  skipValidation: true,//!!process.env.SKIP_ENV_VALIDATION,
+  skipValidation: true, //!!process.env.SKIP_ENV_VALIDATION,
   /**
    * Makes it so that empty strings are treated as undefined. `SOME_VAR: z.string()` and
    * `SOME_VAR=''` will throw an error.

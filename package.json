@@ -10,6 +10,8 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "dev": "concurrently \"next dev\" \"tsx --require dotenv/config src/server/index.ts\"",
+    "dev:next": "next dev",
+    "dev:fastify": "tsx --require dotenv/config src/server/index.ts",
     "lint": "next lint",
     "start": "next start"
   },

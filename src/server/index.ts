@@ -6,7 +6,7 @@ const start = async () => {
 
   try {
     await server.listen({ port: env.SERVER_PORT });
-    console.log(`Server listening on ${env.SERVER_URL}`);
+    console.log(`Server listening on ${env.NEXT_PUBLIC_SERVER_URL}`);
   } catch (err) {
     server.log.error(err);
     process.exit(1);
