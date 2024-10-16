@@ -4,7 +4,11 @@
  */
 await import("./src/env.js");
 
+const isMobile = process.env.NEXT_PUBLIC_IS_MOBILE === "true";
+
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  ...(isMobile ? { output: "export" } : {}),
+};
 
 export default config;
