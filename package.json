@@ -9,7 +9,7 @@
     "dev:next": "next dev",
     "dev:fastify": "tsx --require dotenv/config src/server/index.ts",
     "static": "NEXT_PUBLIC_IS_MOBILE=true next build",
-    "cap:sync": "pnpm run static && npx cap sync",
+    "cap:sync": "pnpm run static && pnpm exec cap sync",
     "lint": "next lint",
     "start": "next start",
     "clean": "rm -rf .next",
