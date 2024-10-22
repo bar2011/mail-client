@@ -48,6 +48,8 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
+        <li><a href="#development">Development</a></li>
+        <li><a href="#building">Building</a></li>
       </ul>
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
@@ -97,6 +99,7 @@ This is of course a WIP, so if you have any feature requests, bugs, or really an
 ### Prerequisites
 
 * pnpm
+* docker
 
 ### Installation
 
@@ -104,14 +107,89 @@ This is of course a WIP, so if you have any feature requests, bugs, or really an
    ```sh
    git clone https://github.com/bar2011/mail-client.git
    ```
-2. Install NPM packages
+2. Install packages
    ```sh
    pnpm install
    ```
-3. Run the project
+3. Start the database
    ```sh
-   pnpm dev
+   ./start-database.sh
+   pnpm db:push
    ```
+4. Add all platforms to Capacitor
+   ```sh
+   pnpm exec cap add ios
+   pnpm exec cap add android
+   ```
+
+### Development
+
+#### Concurrently running client and server
+
+To start the project in developer mode, run the following command:
+
+```sh
+pnpm dev
+```
+
+After making changes, there are 3 possible scenerios:
+
+1. The changes were made to the client: in that case, the client will automatically reload
+2. The changes were made to the server: in that case, you'll need to restart the project
+3. The changes were made to the database: in that case, you'll need to restart the project, and in a seperate terminal, run `pnpm db:push`
+
+#### Seperately running client and server
+
+To start the project in developer mode, run the following commands in seperate terminals:
+
+- client side:
+
+```sh
+pnpm dev:next
+```
+
+- server side:
+
+```sh
+pnpm dev:fastify
+```
+
+After making changes, there are 3 possible scenerios:
+
+1. The changes were made to the client: in that case, the client will automatically reload
+2. The changes were made to the server: in that case, you'll need to restart the server
+3. The changes were made to the database: in that case, you'll need to restart the server, and in a seperate terminal, run `pnpm db:push`
+
+> In all cases, you can always run `pnpm db:studio` to open a helpful page to visualize the database.
+
+If you'd like to test your changes on your phone, run the following commands while the project is running:
+
+```sh
+pnpm cap:sync
+pnpm exec cap open ios # to open iOS in XCode
+pnpm exec cap open android # to open Android in Android Studio
+```
+
+For iOS, you'll need to sign the project with your Apple account, and then you'll be able to run the app on your phone.
+For Android, it needs to be tested.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Building
+
+To build the project for web, run the following command:
+
+```sh
+pnpm static
+```
+
+To build the project for other platforms, run the following command while the project is running:
+
+```sh
+pnpm cap:sync
+```
+
+Then you'll be able to open the project and test it using the command `pnpm exec cap open ` and then your enviroment.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -124,7 +202,7 @@ This is of course a WIP, so if you have any feature requests, bugs, or really an
 - [ ] Add additional tools to complete stack
   - [x] Add Fastify in backend
   - [ ] Add Electron
-  - [ ] Add Capacitor (if possible add both Electron and Capacitor together)
+  - [x] Add Capacitor (if possible add both Electron and Capacitor together)
   - [ ] Add ShadcnUI
   - [ ] Connect web to Vercel
 - [ ] Develop frontend to MVP standards
@@ -150,7 +228,8 @@ Don't forget to give the project a star! Thanks again!
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+5. Build and test your changes on all enviroments (web, iOS, Android, Windows, macOS)
+6. Open a Pull Request, and specify all the enviroments you couldn't test on.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
