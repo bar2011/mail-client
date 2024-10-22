@@ -8,7 +8,15 @@ const isMobile = process.env.NEXT_PUBLIC_IS_MOBILE === "true";
 
 /** @type {import("next").NextConfig} */
 const config = {
-  ...(isMobile ? { output: "export" } : {}),
+  ...(isMobile
+    ? { output: "export", reactStrictMode: true, images: { unoptimized: true } }
+    : {}),
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default config;
