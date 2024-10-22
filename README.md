@@ -121,6 +121,13 @@ This is of course a WIP, so if you have any feature requests, bugs, or really an
    pnpm exec cap add ios
    pnpm exec cap add android
    ```
+5. Run `cd electron` from the project root to get into the Electron folder.
+6. Install the Electron dependencies
+   ```sh
+   npm install
+   ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Development
 
@@ -173,6 +180,13 @@ pnpm exec cap open android # to open Android in Android Studio
 For iOS, you'll need to sign the project with your Apple account, and then you'll be able to run the app on your phone.
 For Android, it needs to be tested.
 
+To also see the app on your desktop, you can run the following command:
+```sh
+pnpm exec cap open @capacitor-community/electron
+```
+
+But currently desktop development doesn't fully work, so developing like that won't help you.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Building
@@ -183,13 +197,18 @@ To build the project for web, run the following command:
 pnpm static
 ```
 
-To build the project for other platforms, run the following command while the project is running:
+To build the project for phone (iOS or Android), run the following commands while the project is running:
 
 ```sh
 pnpm cap:sync
+pnpm exec open ios # to open iOS in XCode
+pnpm exec open android # to open Android in Android Studio
 ```
 
-Then you'll be able to open the project and test it using the command `pnpm exec cap open ` and then your enviroment.
+After the wanted app is opened, you'll be able to build it and test it on your phone.
+Currently iOS is known to work, though Android is not tested.
+
+Building for desktop is not supported yet.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

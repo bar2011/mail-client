@@ -19,6 +19,7 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@capacitor-community/electron": "^5.0.1",
     "@capacitor/android": "^6.1.2",
     "@capacitor/ios": "^6.1.2",
     "@capacitor/keyboard": "^6.0.2",

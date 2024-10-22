@@ -13,7 +13,11 @@ export const createFastifyServer = async () => {
     maxParamLength: 5000,
   });
 
-  const origin = [env.NEXT_PUBLIC_CLIENT_URL, "capacitor://localhost"];
+  const origin = [
+    env.NEXT_PUBLIC_CLIENT_URL,
+    "capacitor://localhost",
+    "capacitor-electron://-",
+  ];
 
   if (env.NODE_ENV !== "production") {
     origin.push("http://localhost:3000");
