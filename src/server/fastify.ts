@@ -13,8 +13,14 @@ export const createFastifyServer = async () => {
     maxParamLength: 5000,
   });
 
+  const origin = [env.NEXT_PUBLIC_CLIENT_URL, "capacitor://localhost"];
+
+  if (env.NODE_ENV !== "production") {
+    origin.push("http://localhost:3000");
+  }
+
   server.register(fastifyCors, {
-    origin: [env.NEXT_PUBLIC_CLIENT_URL, "capacitor://localhost"],
+    origin: origin,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "x-trpc-source"],
     credentials: true,
