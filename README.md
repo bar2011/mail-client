@@ -131,48 +131,30 @@ This is of course a WIP, so if you have any feature requests, bugs, or really an
 
 ### Development
 
-#### Concurrently running client and server
+You can start the project in development mode in two ways:
+1. Concurrently running client and server
+2. Separately running client and server
 
-To start the project in development mode, run the following command:
-
+To concurrently run the client and server, run the following command:
 ```sh
 pnpm dev
 ```
 
-After making changes, there are 3 possible scenerios:
-
-1. The changes were made to the client: in that case, the client will automatically reload
-2. The changes were made to the server: in that case, you'll need to restart the project
-3. The changes were made to the database: in that case, you'll need to restart the project, and in a seperate terminal, run `pnpm db:push`
-
-#### Seperately running client and server
-
-To start the project in development mode, run the following commands in seperate terminals:
-
-- client side:
-
+To seperately run the client and server, run the following commands in seperate terminals:
 ```sh
-pnpm dev:next
+pnpm dev:next # client side
+pnpm dev:fastify # server side
 ```
 
-- server side:
+In all cases, the client will automatically reload when you make changes to the project, but the backend will need to be restarted (in the first case, restarting the server means restarting the whole project).
+When you update the database schema, run `pnpm db:push` and restart the server (again this means restarting the whole project if you chose the first method).
 
-```sh
-pnpm dev:fastify
-```
-
-After making changes, there are 3 possible scenerios:
-
-1. The changes were made to the client: in that case, the client will automatically reload
-2. The changes were made to the server: in that case, you'll need to restart the server
-3. The changes were made to the database: in that case, you'll need to restart the server, and in a seperate terminal, run `pnpm db:push`
-
-> In all cases, you can always run `pnpm db:studio` to open a helpful page to visualize the database.
+You can always run `pnpm db:studio` to open a helpful page to visualize the database and/or make changes to it.
 
 If you'd like to test your changes on your phone, run the following commands while the project is running:
 
 ```sh
-pnpm cap:sync
+pnpm sync:cap
 pnpm exec cap open ios # to open iOS in XCode
 pnpm exec cap open android # to open Android in Android Studio
 ```
@@ -180,12 +162,10 @@ pnpm exec cap open android # to open Android in Android Studio
 For iOS, you'll need to sign the project with your Apple account, and then you'll be able to run the app on your phone.
 For Android, it needs to be tested.
 
-To also see the app on your desktop, you can run the following command:
+To also see the app on your desktop (with hot reloading), you can run the following command:
 ```sh
-pnpm exec cap open @capacitor-community/electron
+pnpm dev:electron
 ```
-
-But currently desktop development doesn't fully work, so developing like that won't help you.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -200,7 +180,7 @@ pnpm static
 To build the project for phone (iOS or Android), run the following commands while the project is running:
 
 ```sh
-pnpm cap:sync
+pnpm sync:cap
 pnpm exec open ios # to open iOS in XCode
 pnpm exec open android # to open Android in Android Studio
 ```
@@ -208,7 +188,18 @@ pnpm exec open android # to open Android in Android Studio
 After the wanted app is opened, you'll be able to build it and test it on your phone.
 Currently iOS is known to work, though Android is not tested.
 
-Building for desktop is not supported yet.
+In order to build for desktop, you'll need to run the following command:
+```sh
+pnpm sync:electron
+cd electron
+pnpm electron:make # you can specify platform by :mac or :win if you'd like
+```
+
+After those commands are run, you'll see the executable(s) in the `electron/dist` folder.
+
+> Two important notes on desktop building:
+> 1. If you're on MacOS or Windows ARM, you'll only be able to build for Windows ARM, not Windows x64 or x86.
+> 2. If you're on any Windows machine, you won't be able to build for MacOS.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -220,7 +211,7 @@ Building for desktop is not supported yet.
 - [x] Clean project
 - [ ] Add additional tools to complete stack
   - [x] Add Fastify in backend
-  - [ ] Add Electron
+  - [x] Add Electron
   - [x] Add Capacitor (if possible add both Electron and Capacitor together)
   - [ ] Add ShadcnUI
   - [ ] Connect web to Vercel
