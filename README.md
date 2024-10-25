@@ -121,9 +121,9 @@ This is of course a WIP, so if you have any feature requests, bugs, or really an
    pnpm exec cap add ios
    pnpm exec cap add android
    ```
-5. Run `cd electron` from the project root to get into the Electron folder.
-6. Install the Electron dependencies
+5. Install the Electron dependencies
    ```sh
+   cd electron
    npm install
    ```
 
@@ -133,7 +133,7 @@ This is of course a WIP, so if you have any feature requests, bugs, or really an
 
 #### Concurrently running client and server
 
-To start the project in developer mode, run the following command:
+To start the project in development mode, run the following command:
 
 ```sh
 pnpm dev
@@ -147,7 +147,7 @@ After making changes, there are 3 possible scenerios:
 
 #### Seperately running client and server
 
-To start the project in developer mode, run the following commands in seperate terminals:
+To start the project in development mode, run the following commands in seperate terminals:
 
 - client side:
 
@@ -248,7 +248,7 @@ Don't forget to give the project a star! Thanks again!
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Build and test your changes on all enviroments (web, iOS, Android, Windows, macOS)
-6. Open a Pull Request, and specify all the enviroments you couldn't test on.
+6. Open a Pull Request, and if you couldn't test on an enviroment, mention it.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
