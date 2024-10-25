@@ -18,9 +18,8 @@ import {
 import electronIsDev from "electron-is-dev";
 import electronServe from "electron-serve";
 import windowStateKeeper from "electron-window-state";
-import { join, resolve } from "path";
-import { config } from "dotenv";
-config({ path: resolve(__dirname, "../../.env") });
+import { join } from "path";
+import getEnvConfig from "./env-config";
 
 // Define components for a watcher to detect when the webapp is changed so we can reload in Dev mode.
 const reloadWatcher = {
@@ -250,8 +249,8 @@ export class ElectronCapacitorApp {
 // Set a CSP up for our application based on the custom scheme
 export function setupContentSecurityPolicy(customScheme: string): void {
   session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
-    const server = process.env.NEXT_PUBLIC_SERVER_URL;
-    console.log(server);
+    const envConfig = getEnvConfig();
+    const server = envConfig.NEXT_PUBLIC_SERVER_URL;
     callback({
       responseHeaders: {
         ...details.responseHeaders,
@@ -269,7 +268,7 @@ export function setupContentSecurityPolicy(customScheme: string): void {
             : `
               default-src 'self' ${customScheme}://*;
               connect-src 'self' ${customScheme}://* ${server};
-              script-src 'self' ${customScheme}://*;
+              script-src 'self' ${customScheme}://* 'unsafe-inline';
               style-src 'self' ${customScheme}://* 'unsafe-inline';
               img-src 'self' ${customScheme}://* data: https:;
               font-src 'self' ${customScheme}://* data:;
