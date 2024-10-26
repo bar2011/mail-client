@@ -7,7 +7,8 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
-    DATABASE_URL: z.string().url(),
+    POSTGRES_URL: z.string().url(),
+    DB_TYPE: z.enum(["postgres", "vercel-postgres"]),
     SERVER_PORT: z.number().int(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
@@ -29,7 +30,8 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
-    DATABASE_URL: process.env.DATABASE_URL,
+    POSTGRES_URL: process.env.POSTGRES_URL,
+    DB_TYPE: process.env.DB_TYPE,
     SERVER_PORT: process.env.SERVER_PORT,
     NEXT_PUBLIC_CLIENT_URL: process.env.NEXT_PUBLIC_CLIENT_URL,
     NEXT_PUBLIC_SERVER_URL: process.env.NEXT_PUBLIC_SERVER_URL,

@@ -17,6 +17,7 @@ const config = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  useFileSystemPublicRoutes: true,
 };
 
 export default config;

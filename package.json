@@ -32,6 +32,7 @@
     "@trpc/next": "11.0.0-rc.586",
     "@trpc/react-query": "11.0.0-rc.586",
     "@trpc/server": "11.0.0-rc.586",
+    "@vercel/postgres": "^0.10.0",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.33.0",
     "fastify": "^5.0.0",
