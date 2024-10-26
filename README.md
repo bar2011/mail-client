@@ -1,14 +1,13 @@
 <a id="readme-top"></a>
 
 <!-- PROJECT SHIELDS -->
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
-
-
 
 <!-- PROJECT LOGO -->
 <br />
@@ -30,8 +29,6 @@
     <a href="https://github.com/bar2011/mail-client/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
-
-
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -60,9 +57,8 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 [![Product Name Screen Shot][product-screenshot]](#)
@@ -79,27 +75,24 @@ This is of course a WIP, so if you have any feature requests, bugs, or really an
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 ### Built With
 
-* [![T3][T3-stack]][T3-url]
-* [![Fastify][Fastify]][Fastify-url]
-* [![Shadcn][Shadcn]][Shadcn-url]
-* [![Electron][Electron]][Electron-url]
-* [![Capcitor][Capcitor]][Capcitor-url]
+- [![T3][T3-stack]][T3-url]
+- [![Fastify][Fastify]][Fastify-url]
+- [![Shadcn][Shadcn]][Shadcn-url]
+- [![Electron][Electron]][Electron-url]
+- [![Capcitor][Capcitor]][Capcitor-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 ### Prerequisites
 
-* pnpm
-* docker
+- pnpm
+- docker
 
 ### Installation
 
@@ -126,21 +119,25 @@ This is of course a WIP, so if you have any feature requests, bugs, or really an
    cd electron
    npm install
    ```
+6. Populate the `.env` file as shown in `.env.example`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Development
 
 You can start the project in development mode in two ways:
+
 1. Concurrently running client and server
 2. Separately running client and server
 
 To concurrently run the client and server, run the following command:
+
 ```sh
 pnpm dev
 ```
 
 To seperately run the client and server, run the following commands in seperate terminals:
+
 ```sh
 pnpm dev:next # client side
 pnpm dev:fastify # server side
@@ -163,6 +160,7 @@ For iOS, you'll need to sign the project with your Apple account, and then you'l
 For Android, it needs to be tested.
 
 To also see the app on your desktop (with hot reloading), you can run the following command:
+
 ```sh
 pnpm dev:electron
 ```
@@ -181,14 +179,15 @@ To build the project for phone (iOS or Android), run the following commands whil
 
 ```sh
 pnpm sync:cap
-pnpm exec open ios # to open iOS in XCode
-pnpm exec open android # to open Android in Android Studio
+pnpm exec cap open ios # to open iOS in XCode
+pnpm exec cap open android # to open Android in Android Studio
 ```
 
 After the wanted app is opened, you'll be able to build it and test it on your phone.
-Currently iOS is known to work, though Android is not tested.
+Currently iOS is known to work, but Android is not tested.
 
 In order to build for desktop, you'll need to run the following command:
+
 ```sh
 pnpm sync:electron
 cd electron
@@ -198,14 +197,14 @@ pnpm electron:make # you can specify platform by :mac or :win if you'd like
 After those commands are run, you'll see the executable(s) in the `electron/dist` folder.
 
 > Two important notes on desktop building:
+>
 > 1. If you're on MacOS or Windows ARM, you'll only be able to build for Windows ARM, not Windows x64 or x86.
 > 2. If you're on any Windows machine, you won't be able to build for MacOS.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- ROADMAP -->
+
 ## Roadmap
 
 - [x] Clean project
@@ -214,7 +213,7 @@ After those commands are run, you'll see the executable(s) in the `electron/dist
   - [x] Add Electron
   - [x] Add Capacitor (if possible add both Electron and Capacitor together)
   - [ ] Add ShadcnUI
-  - [ ] Connect web to Vercel
+  - [x] Connect web to Vercel
 - [ ] Develop frontend to MVP standards
   - [ ] Create UI/UX with mock values based on Figma
   - [ ] Make everything as dynamic as possible to allow later integration with backend
@@ -224,9 +223,8 @@ See the [open issues](https://github.com/bar2011/mail-client/issues) for a full 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Any contributions you make are **greatly appreciated**.
@@ -238,23 +236,21 @@ Don't forget to give the project a star! Thanks again!
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Build and test your changes on all enviroments (web, iOS, Android, Windows, macOS)
-6. Open a Pull Request, and if you couldn't test on an enviroment, mention it.
+5. Build and test your changes on all platforms (web, iOS, Android, Windows, macOS)
+6. Open a Pull Request, and if you couldn't test on a platform, mention it.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- CONTACT -->
+
 ## Contact
 
 Bar Einav - [@be1_bar](https://twitter.com/be1_bar) - bareinav10@gmail.com
@@ -265,6 +261,7 @@ Project Link: [https://github.com/bar2011/mail-client](https://github.com/bar201
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/bar2011/mail-client.svg?style=for-the-badge
 [contributors-url]: https://github.com/bar2011/mail-client/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/bar2011/mail-client.svg?style=for-the-badge
