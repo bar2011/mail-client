@@ -46,6 +46,8 @@ export const createFastifyServer = async () => {
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "x-trpc-source"],
     credentials: true,
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
   });
 
   server.register(fastifyTRPCPlugin, {
