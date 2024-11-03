@@ -29,6 +29,17 @@ export const createFastifyServer = async () => {
   //   allowedHeaders: ["Content-Type", "Authorization", "x-trpc-source"],
   //   credentials: true,
   // });
+  server.register(fastifyCors, {
+    origin: [
+      "http://localhost:3000",
+      "https://mail-client-frontend.vercel.app",
+      "capacitor://localhost",
+      "capacitor-electron://-",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization", "x-trpc-source"],
+      credentials: true,
+  });
 
   server.register(fastifyTRPCPlugin, {
     prefix: "/trpc",
