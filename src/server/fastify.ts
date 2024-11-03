@@ -23,12 +23,12 @@ export const createFastifyServer = async () => {
     origin.push("http://localhost:3000");
   }
 
-  server.register(fastifyCors, {
-    origin: origin,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "x-trpc-source"],
-    credentials: true,
-  });
+  // server.register(fastifyCors, {
+  //   origin: origin,
+  //   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  //   allowedHeaders: ["Content-Type", "Authorization", "x-trpc-source"],
+  //   credentials: true,
+  // });
 
   server.register(fastifyTRPCPlugin, {
     prefix: "/trpc",
