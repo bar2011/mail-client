@@ -29,16 +29,23 @@ export const createFastifyServer = async () => {
   //   allowedHeaders: ["Content-Type", "Authorization", "x-trpc-source"],
   //   credentials: true,
   // });
+  const allowedOrigins = [
+    "http://localhost:3000",
+    "https://mail-client-frontend.vercel.app",
+    "capacitor://localhost",
+    "capacitor-electron://-",
+  ];
   server.register(fastifyCors, {
-    origin: [
-      "http://localhost:3000",
-      "https://mail-client-frontend.vercel.app",
-      "capacitor://localhost",
-      "capacitor-electron://-",
-    ],
+    origin: (origin, cb) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        cb(null, true);
+      } else {
+        cb(new Error("Not allowed by CORS"), false);
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-      allowedHeaders: ["Content-Type", "Authorization", "x-trpc-source"],
-      credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization", "x-trpc-source"],
+    credentials: true,
   });
 
   server.register(fastifyTRPCPlugin, {
