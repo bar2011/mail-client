@@ -6,6 +6,9 @@ const start = async () => {
 
   try {
     await server.listen({ port: env.SERVER_PORT, host: "0.0.0.0" });
+    server.get("/health", (req, res) => {
+      res.send("OK");
+    });
     console.log(`Server listening on ${env.NEXT_PUBLIC_SERVER_URL}`);
   } catch (err) {
     server.log.error(err);
