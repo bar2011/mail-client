@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "(.*)",
+      "source": "/trpc/(.*)",
       "headers": [
         { "key": "Access-Control-Allow-Credentials", "value": "true" },
         { "key": "Access-Control-Allow-Origin", "value": "*" },
@@ -11,7 +11,7 @@
         },
         {
           "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type Authorization x-trpc-source"
+          "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization, x-trpc-source"
         }
       ]
     }
