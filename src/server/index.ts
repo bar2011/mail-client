@@ -5,11 +5,7 @@ const start = async () => {
   const server = await createFastifyServer();
 
   try {
-    if (env.NODE_ENV === "production") {
-      await server.listen({ port: env.SERVER_PORT });
-    } else {
-      await server.listen({ port: env.SERVER_PORT, host: "0.0.0.0" });
-    }
+    await server.listen({ port: env.SERVER_PORT, host: "0.0.0.0" });
     console.log(`Server listening on ${env.NEXT_PUBLIC_SERVER_URL}`);
   } catch (err) {
     server.log.error(err);
