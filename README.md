@@ -162,6 +162,7 @@ For Android, it needs to be tested.
 To also see the app on your desktop (with hot reloading), you can run the following command:
 
 ```sh
+pnpm sync:electron
 pnpm dev:electron
 ```
 
