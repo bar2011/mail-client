@@ -42,5 +42,10 @@ export const createFastifyServer = async () => {
     } satisfies FastifyTRPCPluginOptions<AppRouter>["trpcOptions"],
   });
 
+  // server health check
+  server.get("/", (_req, res) => {
+    res.send({ status: "ok" });
+  });
+
   return server;
 };
