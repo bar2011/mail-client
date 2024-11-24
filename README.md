@@ -213,7 +213,7 @@ After those commands are run, you'll see the executable(s) in the `electron/dist
   - [x] Add Fastify in backend
   - [x] Add Electron
   - [x] Add Capacitor (if possible add both Electron and Capacitor together)
-  - [ ] Add ShadcnUI
+  - [x] Add ShadcnUI
   - [ ] Connect project to Vercel 
     - [x] Connect NextJS to Vercel
     - [ ] Connect Fastify to Vercel
