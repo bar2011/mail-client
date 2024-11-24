@@ -219,6 +219,17 @@ After those commands are run, you'll see the executable(s) in the `electron/dist
     - [ ] Connect Fastify to Vercel
 - [ ] Develop frontend to MVP standards
   - [ ] Create UI/UX with mock values based on Figma
+    - [ ] Create desktop view
+      - [ ] Home page
+      - [ ] Messages page
+      - [ ] Single mail view
+      - [ ] Actions page
+      - [ ] Trash page
+      - [ ] Calendar page
+      - [ ] Composing view
+      - [ ] Settings page
+      - [ ] Login page
+    - [ ] Create mobile view
   - [ ] Make everything as dynamic as possible to allow later integration with backend
 - [ ] Develop backend to MVP standards
 
