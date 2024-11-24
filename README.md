@@ -213,7 +213,9 @@ After those commands are run, you'll see the executable(s) in the `electron/dist
   - [x] Add Electron
   - [x] Add Capacitor (if possible add both Electron and Capacitor together)
   - [ ] Add ShadcnUI
-  - [x] Connect web to Vercel
+  - [ ] Connect project to Vercel 
+    - [x] Connect NextJS to Vercel
+    - [ ] Connect Fastify to Vercel
 - [ ] Develop frontend to MVP standards
   - [ ] Create UI/UX with mock values based on Figma
   - [ ] Make everything as dynamic as possible to allow later integration with backend
