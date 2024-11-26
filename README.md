@@ -220,7 +220,7 @@ After those commands are run, you'll see the executable(s) in the `electron/dist
 - [ ] Develop frontend to MVP standards
   - [ ] Create UI/UX with mock values based on Figma
     - [ ] Create desktop view
-      - [ ] Home page
+      - [x] Home page
       - [ ] Messages page
       - [ ] Single mail view
       - [ ] Actions page
