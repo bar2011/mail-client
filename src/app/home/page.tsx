@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import { HydrateClient } from "~/trpc/server";
 import MessageButton from "./_components/MessageButton";
 
@@ -16,11 +15,6 @@ type homeProps =
 export default async function Home(props: homeProps) {
   const currentImage =
     backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
-
-  async function redirectToMessages() {
-    "use server";
-    redirect("/messages");
-  }
 
   return (
     <HydrateClient>
@@ -44,7 +38,7 @@ export default async function Home(props: homeProps) {
           </h2>
         </div>
         <div className="flex min-w-full flex-row-reverse">
-          <MessageButton redirectAction={redirectToMessages} />
+          <MessageButton />
         </div>
       </main>
     </HydrateClient>
