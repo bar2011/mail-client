@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 
 type ConversationView = {
   left: string;
@@ -11,12 +13,29 @@ export default function ConversationList({
 }: {
   conversations: ConversationView[];
 }) {
+  const [actionIndex, setActionIndex] = useState<number>(-1);
+  const [transparency, setTransparency] = useState<string>("#7F");
+
   return (
-    <div className="flex h-min flex-grow bg-accent">
+    <div className="flex h-min flex-grow cursor-pointer bg-accent">
       <div className="flex w-full flex-grow flex-col gap-[1px]">
         {conversations.map((conversation, index) => {
           return (
-            <div className="bg-white py-2 pl-4" key={index}>
+            <div
+              className="w-full py-2 pl-4"
+              style={{
+                backgroundColor:
+                  "#FFFFFF" + (actionIndex === index ? transparency : ""),
+              }}
+              onMouseEnter={() => {
+                setActionIndex(index);
+                setTransparency("7F");
+              }}
+              onMouseDown={() => setTransparency("00")}
+              onMouseUp={() => setTransparency("7F")}
+              onMouseLeave={() => setActionIndex(-1)}
+              key={index}
+            >
               {conversation.left}
             </div>
           );
@@ -25,7 +44,21 @@ export default function ConversationList({
       <div className="flex w-full flex-grow flex-col gap-[1px]">
         {conversations.map((conversation, index) => {
           return (
-            <div className="bg-white py-2" key={index}>
+            <div
+              className="w-full py-2"
+              style={{
+                backgroundColor:
+                  "#FFFFFF" + (actionIndex === index ? transparency : ""),
+              }}
+              onMouseEnter={() => {
+                setActionIndex(index);
+                setTransparency("7F");
+              }}
+              onMouseDown={() => setTransparency("00")}
+              onMouseUp={() => setTransparency("7F")}
+              onMouseLeave={() => setActionIndex(-1)}
+              key={index}
+            >
               {conversation.middle}
             </div>
           );
@@ -34,7 +67,21 @@ export default function ConversationList({
       <div className="flex w-full flex-grow flex-col gap-[1px]">
         {conversations.map((conversation, index) => {
           return (
-            <div className="bg-white py-2 pr-6 text-right" key={index}>
+            <div
+              className="w-full py-2 pr-6 text-right"
+              style={{
+                backgroundColor:
+                  "#FFFFFF" + (actionIndex === index ? transparency : ""),
+              }}
+              onMouseEnter={() => {
+                setActionIndex(index);
+                setTransparency("7F");
+              }}
+              onMouseDown={() => setTransparency("00")}
+              onMouseUp={() => setTransparency("7F")}
+              onMouseLeave={() => setActionIndex(-1)}
+              key={index}
+            >
               {conversation.right}
             </div>
           );
