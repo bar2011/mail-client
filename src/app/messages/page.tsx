@@ -8,7 +8,7 @@ type Message = {
   sentDate: Date;
   title: string;
   message: string;
-  // attachments: ?; // TODO: allow attachments
+  // attachments?: string[]; // TODO: allow attachments
 };
 
 type Conversation = {
@@ -16,6 +16,35 @@ type Conversation = {
   isFinished: boolean;
   uuid: string;
   text: [Message, ...Message[]];
+};
+
+interface GeneralFilter {
+  filter:
+    | { type: "latest-author"; searchedAuthors: string[] }
+    | { type: "from-date"; date: Date }
+    | { type: "is-finished"; searchedState: boolean }
+    | { type: "title"; searchedKeywords: string[] };
+  // icon?: string; // TODO: allow icons
+  color: string;
+}
+
+interface FilterWithChild extends GeneralFilter {
+  childFilterGroup: FilterGroup;
+  title?: never;
+}
+
+interface FilterWithoutChild extends GeneralFilter {
+  childFilterGroup?: never;
+  title: string;
+}
+
+type Filter = FilterWithChild | FilterWithoutChild;
+
+type FilterGroup = {
+  name: string;
+  filters: Filter[];
+  currentChosenFilter: number;
+  includesOther: boolean;
 };
 
 export default function Messages() {
@@ -81,6 +110,132 @@ export default function Messages() {
             "Agreed! One improvement we can work on is improving communication during blockers.",
         },
       ],
+    },
+  ];
+
+  const filterGroups: FilterGroup[] = [
+    {
+      name: "Main",
+      filters: [
+        {
+          filter: { type: "latest-author", searchedAuthors: ["Mom", "Dad"] },
+          color: "#FF5733",
+          childFilterGroup: {
+            name: "Parents",
+            filters: [
+              {
+                filter: { type: "is-finished", searchedState: true },
+                title: "Finished conversations",
+                color: "#33FF57",
+              },
+              {
+                filter: { type: "from-date", date: new Date("2024-01-01") },
+                title: "From this year",
+                color: "#5733FF",
+              },
+            ],
+            currentChosenFilter: 0,
+            includesOther: true,
+          },
+        },
+        {
+          filter: { type: "from-date", date: new Date("2024-06-20") },
+          color: "#FF33B8",
+          childFilterGroup: {
+            name: "From graduation",
+            filters: [
+              {
+                filter: { type: "title", searchedKeywords: ["completed"] },
+                title: "Filter Titles by Completion",
+                color: "#33B8FF",
+              },
+              {
+                filter: { type: "is-finished", searchedState: true },
+                title: "Finished Works from Date",
+                color: "#B833FF",
+              },
+            ],
+            currentChosenFilter: 0,
+            includesOther: true,
+          },
+        },
+        {
+          filter: { type: "is-finished", searchedState: true },
+          color: "#B8FF33",
+          childFilterGroup: {
+            name: "Finished Conversations",
+            filters: [
+              {
+                filter: { type: "latest-author", searchedAuthors: ["Mom"] },
+                title: "Latest Finished by Mom",
+                color: "#FFB833",
+              },
+              {
+                filter: { type: "from-date", date: new Date("2023-05-10") },
+                title: "Finished Works from Date",
+                color: "#33FFB8",
+              },
+            ],
+            currentChosenFilter: 0,
+            includesOther: false,
+          },
+        },
+      ],
+      currentChosenFilter: 0,
+      includesOther: true,
+    },
+
+    {
+      name: "Advanced Filters",
+      filters: [
+        {
+          filter: { type: "title", searchedKeywords: ["mystery"] },
+          color: "#C4C4C4",
+          childFilterGroup: {
+            name: "Mystery Titles",
+            filters: [
+              {
+                filter: { type: "is-finished", searchedState: false },
+                title: "Unfinished Mysteries",
+                color: "#C4FFB8",
+              },
+              {
+                filter: {
+                  type: "latest-author",
+                  searchedAuthors: ["Mom", "Dad"],
+                },
+                title: "Latest Mystery Authors",
+                color: "#33B8FF",
+              },
+            ],
+            currentChosenFilter: 0,
+            includesOther: true,
+          },
+        },
+        {
+          filter: { type: "latest-author", searchedAuthors: ["Mom"] },
+          color: "#FF9333",
+          childFilterGroup: {
+            name: "Latest Author",
+            filters: [
+              {
+                filter: { type: "from-date", date: new Date("2023-07-25") },
+                title: "Latest Author by Date",
+                color: "#33FF93",
+              },
+              {
+                filter: { type: "is-finished", searchedState: true },
+                title: "Finished by Latest Author",
+                color: "#93FF33",
+              },
+            ],
+            currentChosenFilter: 0,
+            includesOther: false,
+          },
+        },
+      ],
+      currentChosenFilter: 0,
+      includesOther: true,
     },
   ];
 
