@@ -45,7 +45,6 @@ type Filter = FilterWithChild | FilterWithoutChild;
 export type FilterGroup = {
   name: string;
   filters: Filter[];
-  currentChosenFilter: number;
   includesOther: boolean;
 };
 
@@ -135,7 +134,6 @@ export default function Messages() {
               color: "#5733FF",
             },
           ],
-          currentChosenFilter: -1,
           includesOther: true,
         },
       },
@@ -156,7 +154,6 @@ export default function Messages() {
               color: "#B833FF",
             },
           ],
-          currentChosenFilter: -1,
           includesOther: true,
         },
       },
@@ -177,12 +174,10 @@ export default function Messages() {
               color: "#33FFB8",
             },
           ],
-          currentChosenFilter: -1,
           includesOther: false,
         },
       },
     ],
-    currentChosenFilter: -1,
     includesOther: true,
   };
 
