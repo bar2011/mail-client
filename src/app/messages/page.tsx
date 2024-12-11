@@ -1,7 +1,9 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import NavigationBar from "../_components/NavigationBar";
-import { randomUUID } from "crypto";
 import ConversationList from "./_components/ConversationList";
+import FilterGroup from "./_components/FilterGroup";
 
 type Message = {
   author: string;
@@ -40,7 +42,7 @@ interface FilterWithoutChild extends GeneralFilter {
 
 type Filter = FilterWithChild | FilterWithoutChild;
 
-type FilterGroup = {
+export type FilterGroup = {
   name: string;
   filters: Filter[];
   currentChosenFilter: number;
@@ -52,7 +54,7 @@ export default function Messages() {
     {
       summary: "Project Kickoff Meeting",
       isFinished: true,
-      uuid: randomUUID(),
+      uuid: "e55faca8-0ee9-4b7c-9715-ffbccaf0f645",
       text: [
         {
           author: "Alice",
@@ -72,7 +74,7 @@ export default function Messages() {
     {
       summary: "Client Feedback Discussion",
       isFinished: false,
-      uuid: randomUUID(),
+      uuid: "6fb104cc-fb8f-4100-95e2-697645faf284",
       text: [
         {
           author: "Charlie",
@@ -93,7 +95,7 @@ export default function Messages() {
     {
       summary: "Team Retrospective",
       isFinished: false,
-      uuid: randomUUID(),
+      uuid: "c15a56e6-7f29-412b-a916-4d9c6eff9c8c",
       text: [
         {
           author: "Eve",
@@ -113,131 +115,76 @@ export default function Messages() {
     },
   ];
 
-  const filterGroups: FilterGroup[] = [
-    {
-      name: "Main",
-      filters: [
-        {
-          filter: { type: "latest-author", searchedAuthors: ["Mom", "Dad"] },
-          color: "#FF5733",
-          childFilterGroup: {
-            name: "Parents",
-            filters: [
-              {
-                filter: { type: "is-finished", searchedState: true },
-                title: "Finished conversations",
-                color: "#33FF57",
-              },
-              {
-                filter: { type: "from-date", date: new Date("2024-01-01") },
-                title: "From this year",
-                color: "#5733FF",
-              },
-            ],
-            currentChosenFilter: 0,
-            includesOther: true,
-          },
+  const filterGroupTree: FilterGroup = {
+    name: "Main",
+    filters: [
+      {
+        filter: { type: "latest-author", searchedAuthors: ["Mom", "Dad"] },
+        color: "#D9D9D9",
+        childFilterGroup: {
+          name: "Parents",
+          filters: [
+            {
+              filter: { type: "is-finished", searchedState: true },
+              title: "Finished conversations",
+              color: "#33FF57",
+            },
+            {
+              filter: { type: "from-date", date: new Date("2024-01-01") },
+              title: "From this year",
+              color: "#5733FF",
+            },
+          ],
+          currentChosenFilter: -1,
+          includesOther: true,
         },
-        {
-          filter: { type: "from-date", date: new Date("2024-06-20") },
-          color: "#FF33B8",
-          childFilterGroup: {
-            name: "From graduation",
-            filters: [
-              {
-                filter: { type: "title", searchedKeywords: ["completed"] },
-                title: "Filter Titles by Completion",
-                color: "#33B8FF",
-              },
-              {
-                filter: { type: "is-finished", searchedState: true },
-                title: "Finished Works from Date",
-                color: "#B833FF",
-              },
-            ],
-            currentChosenFilter: 0,
-            includesOther: true,
-          },
+      },
+      {
+        filter: { type: "from-date", date: new Date("2024-06-20") },
+        color: "#D9D9D9",
+        childFilterGroup: {
+          name: "From graduation",
+          filters: [
+            {
+              filter: { type: "title", searchedKeywords: ["completed"] },
+              title: "Filter Titles by Completion",
+              color: "#33B8FF",
+            },
+            {
+              filter: { type: "is-finished", searchedState: true },
+              title: "Finished Works from Date",
+              color: "#B833FF",
+            },
+          ],
+          currentChosenFilter: -1,
+          includesOther: true,
         },
-        {
-          filter: { type: "is-finished", searchedState: true },
-          color: "#B8FF33",
-          childFilterGroup: {
-            name: "Finished Conversations",
-            filters: [
-              {
-                filter: { type: "latest-author", searchedAuthors: ["Mom"] },
-                title: "Latest Finished by Mom",
-                color: "#FFB833",
-              },
-              {
-                filter: { type: "from-date", date: new Date("2023-05-10") },
-                title: "Finished Works from Date",
-                color: "#33FFB8",
-              },
-            ],
-            currentChosenFilter: 0,
-            includesOther: false,
-          },
+      },
+      {
+        filter: { type: "is-finished", searchedState: true },
+        color: "#D9D9D9",
+        childFilterGroup: {
+          name: "Finished Conversations",
+          filters: [
+            {
+              filter: { type: "latest-author", searchedAuthors: ["Mom"] },
+              title: "Latest Finished by Mom",
+              color: "#FFB833",
+            },
+            {
+              filter: { type: "from-date", date: new Date("2023-05-10") },
+              title: "Finished Works from Date",
+              color: "#33FFB8",
+            },
+          ],
+          currentChosenFilter: -1,
+          includesOther: false,
         },
-      ],
-      currentChosenFilter: 0,
-      includesOther: true,
-    },
-
-    {
-      name: "Advanced Filters",
-      filters: [
-        {
-          filter: { type: "title", searchedKeywords: ["mystery"] },
-          color: "#C4C4C4",
-          childFilterGroup: {
-            name: "Mystery Titles",
-            filters: [
-              {
-                filter: { type: "is-finished", searchedState: false },
-                title: "Unfinished Mysteries",
-                color: "#C4FFB8",
-              },
-              {
-                filter: {
-                  type: "latest-author",
-                  searchedAuthors: ["Mom", "Dad"],
-                },
-                title: "Latest Mystery Authors",
-                color: "#33B8FF",
-              },
-            ],
-            currentChosenFilter: 0,
-            includesOther: true,
-          },
-        },
-        {
-          filter: { type: "latest-author", searchedAuthors: ["Mom"] },
-          color: "#FF9333",
-          childFilterGroup: {
-            name: "Latest Author",
-            filters: [
-              {
-                filter: { type: "from-date", date: new Date("2023-07-25") },
-                title: "Latest Author by Date",
-                color: "#33FF93",
-              },
-              {
-                filter: { type: "is-finished", searchedState: true },
-                title: "Finished by Latest Author",
-                color: "#93FF33",
-              },
-            ],
-            currentChosenFilter: 0,
-            includesOther: false,
-          },
-        },
-      ],
-      currentChosenFilter: 0,
-      includesOther: true,
-    },
-  ];
+      },
+    ],
+    currentChosenFilter: -1,
+    includesOther: true,
+  };
 
   function getConversationViewList() {
     return conversations.map((conversation) => {
@@ -249,11 +196,15 @@ export default function Messages() {
     });
   }
 
+  const [openFilters, setOpenFilters] = useState<number[]>([-1]);
+
   return (
     <main className="min-w-screen flex min-h-screen flex-col">
       <NavigationBar />
       <div className="flex flex-grow">
-        <div className="flex"></div>
+        <div className="flex">
+          <FilterGroup filterGroup={filterGroupTree} filterIndex={0} openFilters={openFilters} setOpenFilters={setOpenFilters} />
+        </div>
         <ConversationList conversations={getConversationViewList()} />
       </div>
     </main>
