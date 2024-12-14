@@ -191,14 +191,39 @@ export default function Messages() {
     });
   }
 
-  const [openFilters, setOpenFilters] = useState<number[]>([-1]);
+  const [openFilters, setOpenFilters] = useState<number[]>([0, 1]);
+
+  function getFilterGroup(filterIndexArray: number[]) {
+    let currentFilterGroup = filterGroupTree;
+    filterIndexArray.forEach((index) => {
+      if (index < 0 || index >= currentFilterGroup.filters.length) return null;
+      const newFilterGroup =
+        currentFilterGroup.filters[index]?.childFilterGroup;
+      if (!newFilterGroup) return null;
+      currentFilterGroup = newFilterGroup;
+    });
+    return currentFilterGroup;
+  }
 
   return (
     <main className="min-w-screen flex min-h-screen flex-col">
       <NavigationBar />
       <div className="flex flex-grow">
         <div className="flex">
-          <FilterGroup filterGroup={filterGroupTree} filterIndex={0} openFilters={openFilters} setOpenFilters={setOpenFilters} />
+          {openFilters.map((value, index) => {
+            // don't count the first, as it's always 0
+            const filterGroup = getFilterGroup(openFilters.slice(1, index + 1));
+            if (!filterGroup) return null;
+            return (
+              <FilterGroup
+                filterGroup={filterGroup}
+                filterIndex={index}
+                openFilters={openFilters}
+                setOpenFilters={setOpenFilters}
+                key={index}
+              />
+            );
+          })}
         </div>
         <ConversationList conversations={getConversationViewList()} />
       </div>
