@@ -19,7 +19,7 @@ export default async function Home(props: homeProps) {
   return (
     <HydrateClient>
       <main
-        className="min-w-screen flex min-h-screen flex-col gap-3 bg-slate-300 bg-cover bg-center bg-no-repeat p-2 text-white bg-blend-normal"
+        className="min-w-screen flex min-h-screen select-none flex-col gap-3 bg-slate-300 bg-cover bg-center bg-no-repeat p-2 text-white bg-blend-normal"
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(${currentImage})`,
         }}
