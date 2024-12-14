@@ -19,7 +19,7 @@ export default function FilterGroup({
 
   return (
     <div className="flex flex-col items-center gap-3 border-r-2 border-border px-3 py-1">
-      <div className="text-lg font-semibold">{filterGroup.name} {filterIndex}</div>
+      <div className="text-lg font-semibold">{filterGroup.name}</div>
       <div className="flex flex-col gap-0.5 bg-white">
         {filterGroup.filters.map((filter, index) => {
           const title = filter.title ?? filter.childFilterGroup.name;

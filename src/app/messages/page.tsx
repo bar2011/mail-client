@@ -191,15 +191,20 @@ export default function Messages() {
     });
   }
 
-  const [openFilters, setOpenFilters] = useState<number[]>([0, 1]);
+  const [openFilters, setOpenFilters] = useState<number[]>([0]);
 
   function getFilterGroup(filterIndexArray: number[]) {
-    let currentFilterGroup = filterGroupTree;
+    let currentFilterGroup: FilterGroup | null = filterGroupTree;
     filterIndexArray.forEach((index) => {
-      if (index < 0 || index >= currentFilterGroup.filters.length) return null;
+      if (
+        !currentFilterGroup ||
+        index < 0 ||
+        index >= currentFilterGroup.filters.length
+      )
+        return (currentFilterGroup = null);
       const newFilterGroup =
         currentFilterGroup.filters[index]?.childFilterGroup;
-      if (!newFilterGroup) return null;
+      if (!newFilterGroup) return (currentFilterGroup = null);
       currentFilterGroup = newFilterGroup;
     });
     return currentFilterGroup;
