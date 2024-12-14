@@ -27,14 +27,7 @@ export default function FilterGroup({
             <div
               className="flex w-full min-w-max cursor-pointer items-center gap-2 rounded-sm bg-muted bg-opacity-0 px-2 py-2 hover:bg-opacity-50 active:bg-opacity-100"
               onClick={() => {
-                if (openFilters.length === filterIndex + 1) {
-                  return setOpenFilters([...openFilters, index]);
-                }
-                setOpenFilters([
-                  ...openFilters.slice(0, filterIndex + 1),
-                  index,
-                  ...openFilters.slice(filterIndex + 2),
-                ]);
+                setOpenFilters([...openFilters.slice(0, filterIndex + 1), index]);
               }}
               style={
                 {
