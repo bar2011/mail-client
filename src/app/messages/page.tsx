@@ -211,7 +211,7 @@ export default function Messages() {
   }
 
   return (
-    <main className="min-w-screen flex min-h-screen flex-col">
+    <main className="min-w-screen flex min-h-screen select-none flex-col">
       <NavigationBar />
       <div className="flex flex-grow">
         <div className="flex">
