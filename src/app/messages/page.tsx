@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavigationBar from "../_components/NavigationBar";
 import ConversationList from "./_components/ConversationList";
 import FilterGroup from "./_components/FilterGroup";
+
+import { conversations, filterGroupTree } from "../constants";
 
 type Message = {
   author: string;
@@ -13,7 +15,7 @@ type Message = {
   // attachments?: string[]; // TODO: allow attachments
 };
 
-type Conversation = {
+export type Conversation = {
   summary: string;
   isFinished: boolean;
   uuid: string;
@@ -49,148 +51,6 @@ export type FilterGroup = {
 };
 
 export default function Messages() {
-  const conversations: Conversation[] = [
-    {
-      summary: "Project Kickoff Meeting",
-      isFinished: true,
-      uuid: "e55faca8-0ee9-4b7c-9715-ffbccaf0f645",
-      text: [
-        {
-          author: "Alice",
-          sentDate: new Date("2024-11-01T09:00:00Z"),
-          title: "Welcome to the project!",
-          message:
-            "Hello everyone, welcome to the project! Let's discuss our goals and timelines.",
-        },
-        {
-          author: "Bob",
-          sentDate: new Date("2024-11-01T09:05:00Z"),
-          title: "Re: Welcome to the project!",
-          message: "Sounds good, Alice. Looking forward to getting started!",
-        },
-      ],
-    },
-    {
-      summary: "Client Feedback Discussion",
-      isFinished: false,
-      uuid: "6fb104cc-fb8f-4100-95e2-697645faf284",
-      text: [
-        {
-          author: "Charlie",
-          sentDate: new Date("2024-11-02T10:15:00Z"),
-          title: "Initial feedback from the client",
-          message:
-            "The client has provided their initial feedback, and they seem to want changes in the design.",
-        },
-        {
-          author: "Dana",
-          sentDate: new Date("2024-11-02T10:30:00Z"),
-          title: "Re: Initial feedback",
-          message:
-            "I think we can make the changes they suggested. Let's prepare a plan.",
-        },
-      ],
-    },
-    {
-      summary: "Team Retrospective",
-      isFinished: false,
-      uuid: "c15a56e6-7f29-412b-a916-4d9c6eff9c8c",
-      text: [
-        {
-          author: "Eve",
-          sentDate: new Date("2024-11-05T14:45:00Z"),
-          title: "Retrospective: What went well?",
-          message:
-            "We successfully hit our milestones on time and had great team collaboration throughout the sprint.",
-        },
-        {
-          author: "Frank",
-          sentDate: new Date("2024-11-05T14:50:00Z"),
-          title: "Re: Retrospective",
-          message:
-            "Agreed! One improvement we can work on is improving communication during blockers.",
-        },
-      ],
-    },
-  ];
-
-  const filterGroupTree: FilterGroup = {
-    name: "Main",
-    filters: [
-      {
-        filter: { type: "latest-author", searchedAuthors: ["Mom", "Dad"] },
-        color: "#D9D9D9",
-        childFilterGroup: {
-          name: "Parents",
-          filters: [
-            {
-              filter: { type: "is-finished", searchedState: true },
-              title: "Finished conversations",
-              color: "#33FF57",
-            },
-            {
-              filter: { type: "from-date", date: new Date("2024-01-01") },
-              title: "From this year",
-              color: "#5733FF",
-            },
-          ],
-          includesOther: true,
-        },
-      },
-      {
-        filter: { type: "from-date", date: new Date("2024-06-20") },
-        color: "#D9D9D9",
-        childFilterGroup: {
-          name: "From graduation",
-          filters: [
-            {
-              filter: { type: "title", searchedKeywords: ["completed"] },
-              title: "Filter Titles by Completion",
-              color: "#33B8FF",
-            },
-            {
-              filter: { type: "is-finished", searchedState: true },
-              title: "Finished Works from Date",
-              color: "#B833FF",
-            },
-          ],
-          includesOther: true,
-        },
-      },
-      {
-        filter: { type: "is-finished", searchedState: true },
-        color: "#D9D9D9",
-        childFilterGroup: {
-          name: "Finished Conversations",
-          filters: [
-            {
-              filter: { type: "latest-author", searchedAuthors: ["Mom"] },
-              title: "Latest Finished by Mom",
-              color: "#FFB833",
-            },
-            {
-              filter: { type: "from-date", date: new Date("2023-05-10") },
-              title: "Finished Works from Date",
-              color: "#33FFB8",
-            },
-          ],
-          includesOther: false,
-        },
-      },
-    ],
-    includesOther: true,
-  };
-
-  function getConversationViewList() {
-    return conversations.map((conversation) => {
-      return {
-        left: conversation.summary,
-        middle: conversation.text[0].author,
-        right: conversation.text[0].sentDate.toDateString(),
-      };
-    });
-  }
-
   const [openFilters, setOpenFilters] = useState<number[]>([0]);
 
   function getFilterGroup(filterIndexArray: number[]) {
@@ -208,6 +68,52 @@ export default function Messages() {
       currentFilterGroup = newFilterGroup;
     });
     return currentFilterGroup;
+  }
+
+  const [filteredConversations, setFilteredConversations] =
+    useState<Conversation[]>(conversations);
+
+  useEffect(() => {
+    let updatedFilteredConversations = conversations;
+    openFilters.slice(1).forEach(async (value, index) => {
+      const filterGroup = getFilterGroup(openFilters.slice(1, index + 1));
+      // if index is one before last, then the user hasn't chosen a filter in the last filter group
+      if (!filterGroup) return;
+      updatedFilteredConversations = updatedFilteredConversations.filter(
+        (conversation) => {
+          const currentFilter = filterGroup.filters[value];
+          if (!currentFilter) return true;
+          switch (currentFilter.filter.type) {
+            case "latest-author":
+              return currentFilter.filter.searchedAuthors.includes(
+                conversation.text[0].author,
+              );
+            case "from-date":
+              return conversation.text[0].sentDate >= currentFilter.filter.date;
+            case "is-finished":
+              return (
+                conversation.isFinished === currentFilter.filter.searchedState
+              );
+            case "title":
+              return currentFilter.filter.searchedKeywords.some((keyword) =>
+                conversation.summary.includes(keyword),
+              );
+          }
+        },
+      );
+    });
+
+    setFilteredConversations(updatedFilteredConversations);
+  }, [openFilters]);
+
+  function getConversationViewList() {
+    return filteredConversations.map((conversation) => {
+      return {
+        left: conversation.summary,
+        middle: conversation.text[0].author,
+        right: conversation.text[0].sentDate.toDateString(),
+      };
+    });
   }
 
   return (
