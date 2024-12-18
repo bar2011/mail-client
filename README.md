@@ -221,7 +221,7 @@ After those commands are run, you'll see the executable(s) in the `electron/dist
   - [ ] Create UI/UX with mock values based on Figma
     - [ ] Create desktop view
       - [x] Home page
-      - [ ] Messages page
+      - [x] Messages page
       - [ ] Single mail view
       - [ ] Actions page
       - [ ] Trash page

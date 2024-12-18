@@ -3,52 +3,10 @@
 import React, { useEffect, useState } from "react";
 import NavigationBar from "../_components/NavigationBar";
 import ConversationList from "./_components/ConversationList";
-import FilterGroup from "./_components/FilterGroup";
+import FilterGroupView from "./_components/FilterGroup";
 
 import { conversations, filterGroupTree } from "../constants";
-
-type Message = {
-  author: string;
-  sentDate: Date;
-  title: string;
-  message: string;
-  // attachments?: string[]; // TODO: allow attachments
-};
-
-export type Conversation = {
-  summary: string;
-  isFinished: boolean;
-  uuid: string;
-  text: [Message, ...Message[]];
-};
-
-interface GeneralFilter {
-  filter:
-    | { type: "latest-author"; searchedAuthors: string[] }
-    | { type: "from-date"; date: Date }
-    | { type: "is-finished"; searchedState: boolean }
-    | { type: "title"; searchedKeywords: string[] };
-  // icon?: string; // TODO: allow icons
-  color: string;
-}
-
-interface FilterWithChild extends GeneralFilter {
-  childFilterGroup: FilterGroup;
-  title?: never;
-}
-
-interface FilterWithoutChild extends GeneralFilter {
-  childFilterGroup?: never;
-  title: string;
-}
-
-type Filter = FilterWithChild | FilterWithoutChild;
-
-export type FilterGroup = {
-  name: string;
-  filters: Filter[];
-  includesOther: boolean;
-};
+import type { Conversation, FilterGroup } from "~/global.types";
 
 export default function Messages() {
   const [openFilters, setOpenFilters] = useState<number[]>([0]);
@@ -121,12 +79,12 @@ export default function Messages() {
       <NavigationBar />
       <div className="flex flex-grow">
         <div className="flex">
-          {openFilters.map((value, index) => {
+          {openFilters.map((_, index) => {
             // don't count the first, as it's always 0
             const filterGroup = getFilterGroup(openFilters.slice(1, index + 1));
             if (!filterGroup) return null;
             return (
-              <FilterGroup
+              <FilterGroupView
                 filterGroup={filterGroup}
                 filterIndex={index}
                 openFilters={openFilters}

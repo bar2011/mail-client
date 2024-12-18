@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 
-import type { FilterGroup } from "../page";
+import type { FilterGroup } from "~/global.types";
 import { X } from "lucide-react";
 
-export default function FilterGroup({
+export default function FilterGroupView({
   filterGroup,
   filterIndex,
   openFilters,

@@ -1,4 +1,4 @@
-import { Conversation, FilterGroup } from "./messages/page";
+import type { Conversation, FilterGroup } from "~/global.types";
 
 const conversations: Conversation[] = [
   {
